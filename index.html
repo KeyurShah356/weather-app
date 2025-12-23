@@ -8,13 +8,18 @@
 </head>
 <body>
 
-<div class="weather-app">
-    <h2>Weather App</h2>
+<div class="app">
+    <h1>Weather App</h1>
 
-    <input type="text" id="cityInput" placeholder="Enter city name">
-    <button onclick="getWeather()">Search</button>
+    <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Enter city name...">
+        <button id="searchBtn">🔍 Search</button>
+    </div>
 
-    <div id="result"></div>
+    <div class="info-card" id="infoCard">
+        <h2>Search for a city to see the weather</h2>
+        <p>Try: London, Paris, Tokyo, New York, Sydney, or Berlin</p>
+    </div>
 </div>
 
 <script src="script.js"></script>

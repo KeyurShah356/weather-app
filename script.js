@@ -1,48 +1,58 @@
 const apiKey = "5786942461a9809f045dd6d48bfdb9fe";
 
-function getWeather() {
-    const city = document.getElementById("cityInput").value;
-    const result = document.getElementById("result");
+const input = document.getElementById("cityInput");
+const button = document.getElementById("searchBtn");
+const infoCard = document.getElementById("infoCard");
 
-    if (city === "") {
-        result.innerHTML = "❌ Please enter a city name";
-        return;
-    }
+button.addEventListener("click", searchWeather);
+input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") searchWeather();
+});
 
-    result.innerHTML = "🔄 Loading...";
+function searchWeather() {
+    const city = input.value.trim();
+    if (!city) return;
 
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`)
-        .then(response => response.json())
+    infoCard.innerHTML = "<h2>Loading...</h2>";
+
+    fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`
+    )
+        .then(res => res.json())
         .then(data => {
-            if (data.cod !== 200) {
-                result.innerHTML = "❌ City not found";
+            console.log(data); // debug
+
+            if (!data.weather) {
+                infoCard.innerHTML = "<h2>City not found</h2>";
                 return;
             }
 
-            const weather = data.weather[0].main;
-
-            let icon = "🌡️";
-
-            if (weather === "Clear") icon = "☀️";
-            else if (weather === "Clouds") icon = "☁️";
-            else if (weather === "Rain") icon = "🌧️";
-            else if (weather === "Drizzle") icon = "🌦️";
-            else if (weather === "Thunderstorm") icon = "⛈️";
-            else if (weather === "Snow") icon = "❄️";
-            else if (weather === "Mist" || weather === "Haze") icon = "🌫️";
-
-            result.innerHTML = `
-                <h3>${data.name}</h3>
-
-                <div class="weather-icon">${icon}</div>
-
-                <p>🌡️ Temp: ${data.main.temp} °C</p>
-                <p>Weather: ${weather}</p>
-                <p>💧 Humidity: ${data.main.humidity}%</p>
-                <p>🌬️ Wind: ${data.wind.speed} km/h</p>
-            `;
+            renderWeather(data);
         })
         .catch(() => {
-            result.innerHTML = "⚠️ Error fetching data";
+            infoCard.innerHTML = "<h2>Error fetching data</h2>";
         });
+}
+
+function renderWeather(data) {
+    const weather = data.weather[0].main;
+    const temp = Math.round(data.main.temp);
+    const humidity = data.main.humidity;
+    const wind = data.wind.speed;
+
+    let icon = "🌡️";
+    if (weather === "Clear") icon = "☀️";
+    else if (weather === "Clouds") icon = "☁️";
+    else if (weather === "Rain") icon = "🌧️";
+    else if (weather === "Snow") icon = "❄️";
+    else if (weather === "Thunderstorm") icon = "⛈️";
+    else if (weather === "Mist" || weather === "Haze") icon = "🌫️";
+
+    infoCard.innerHTML = `
+        <h2>${data.name}</h2>
+        <div class="weather-icon">${icon}</div>
+        <p><strong>${temp}°C</strong> — ${weather}</p>
+        <p>💧 Humidity: ${humidity}%</p>
+        <p>🌬️ Wind: ${wind} km/h</p>
+    `;
 }
