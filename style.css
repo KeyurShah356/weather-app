@@ -1,55 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background: #0a1a2f;
+    margin: 0;
+    background: linear-gradient(135deg, #0a1a2f, #102b4c);
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     color: white;
 }
 
+/* MAIN CARD */
 .weather-app {
-    background: #102b4c;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
+    background: rgba(16, 43, 76, 0.95);
+    padding: 22px;
+    border-radius: 12px;
+    width: 320px;
     text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.weather-app:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* HEADING */
+.weather-app h2 {
+    margin-bottom: 15px;
+    font-size: 26px;
+    letter-spacing: 1px;
+}
+
+/* INPUT */
 input {
-    width: 90%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
     border: none;
+    outline: none;
+    font-size: 15px;
 }
 
+/* BUTTON */
 button {
-    padding: 8px 15px;
+    width: 100%;
+    padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 15px;
+    background: #1e90ff;
+    color: white;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-#result {
-    margin-top: 15px;
+button:hover {
+    background: #1c7ed6;
+    transform: translateY(-1px);
 }
+
+/* RESULT */
+#result {
+    margin-top: 18px;
+    line-height: 1.6;
+}
+
+#result img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.weather-icon {
+    font-size: 70px;
+    margin: 10px 0;
+}
+
+
+/* MOBILE RESPONSIVE */
 @media (max-width: 480px) {
     .weather-app {
         width: 90%;
-        padding: 15px;
+        padding: 18px;
     }
 
-    h2 {
+    .weather-app h2 {
         font-size: 22px;
     }
 
-    input {
-        font-size: 16px;
-    }
-
+    input,
     button {
-        width: 100%;
-        margin-top: 5px;
+        font-size: 16px;
     }
 }
