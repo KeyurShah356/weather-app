@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Weather App</title>
+    <title>Advanced Weather App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,14 +11,21 @@
 <div class="app">
     <h1>Weather App</h1>
 
+    <!-- Search bar -->
     <div class="search-box">
         <input type="text" id="cityInput" placeholder="Enter city name...">
         <button id="searchBtn">🔍 Search</button>
+        <button id="geoBtn">📍 Current Location</button>
     </div>
 
+    <!-- Unit toggle -->
+    <div class="unit-toggle">
+        <button id="toggleUnit">Show in °F</button>
+    </div>
+
+    <!-- Current weather -->
     <div class="info-card" id="infoCard">
-        <h2>Search for a city to see the weather</h2>
-        <p>Try: London, Paris, Tokyo, New York, Sydney, or Berlin</p>
+        <h2>Search or allow location to see the weather</h2>
     </div>
 </div>
 
